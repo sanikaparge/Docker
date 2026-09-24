@@ -1,0 +1,12 @@
+FROM nginx:alpine AS builder 
+WORKDIR /opt
+ADD https://templatemo.com/download/templatemo_632_machina ./
+RUN apk add --no-cache unzip
+RUN mv templatemo_632_machina file.zip
+RUN unzip file.zip -d /opt
+
+
+FROM nginx:alpine
+COPY --from=builder /opt/templatemo_632_machina/ /usr/share/nginx/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
