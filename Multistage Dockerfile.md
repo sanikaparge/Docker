@@ -17,6 +17,7 @@ Implemented a **multi-stage Docker build** using `nginx:alpine` to create a ligh
 
 Multi-stage builds help create **smaller, cleaner, and more efficient Docker images** by keeping build-time dependencies separate from the final production image.
 
+````
 FROM nginx:alpine AS builder 
 WORKDIR /opt
 ADD https://templatemo.com/download/templatemo_632_machina ./
@@ -29,3 +30,4 @@ FROM nginx:alpine
 COPY --from=builder /opt/templatemo_632_machina/ /usr/share/nginx/html/
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+````
